@@ -1,0 +1,53 @@
+**Optimization parameters for gradient bossting decision trees**
+
+hyperparameter space for xgboost
+
+param = {
+        "objective": "binary:logistic", # for binary classification
+        "eval_metric": "logloss", # for log loss
+        "verbosity": 0,
+        "booster": "gbtree",
+        "random_state": 42,
+        "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.05),
+        "n_estimators": trial.suggest_int("n_estimators", 400, 600),
+        "reg_alpha": trial.suggest_float("reg_alpha", 0.0, 1.0),
+        "reg_lambda": trial.suggest_float("reg_lambda", 0.0, 1.0),
+        "max_depth": trial.suggest_int("max_depth", 3, 10),
+        "subsample": trial.suggest_float("subsample", 0.8, 1.0),
+        "colsample_bytree": trial.suggest_float("colsample_bytree", 0.3, 0.9),
+        "min_child_weight": trial.suggest_float("min_child_weight", 1, 10),
+    }
+
+hyperparameter space for catboost
+
+    param = {
+        "loss_function": "Logloss",  # for binary classification
+        "eval_metric": "AUC",  # for ROC AUC metric
+        "random_seed": 42,
+        "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.05),
+        "iterations": trial.suggest_int("iterations", 400, 600),
+        "l2_leaf_reg": trial.suggest_float("l2_leaf_reg", 1.0, 10.0),
+        "depth": trial.suggest_int("depth", 3, 10),
+        "subsample": trial.suggest_float("subsample", 0.8, 1.0),
+        "colsample_bylevel": trial.suggest_float("colsample_bylevel", 0.3, 0.9),
+        "min_child_samples": trial.suggest_int("min_child_samples", 1, 10),
+        "scale_pos_weight": trial.suggest_float("scale_pos_weight", 0.1, 10.0),
+    }
+
+
+hyperparameter space for lgbm
+
+param = {
+        "objective": "multiclass",
+        "metric": "multi_logloss",
+        "verbosity": -1,
+        "boosting_type": "gbdt",
+        "num_class": 7,
+        "lambda_l1": trial.suggest_float("lambda_l1", 1e-8, 10.0, log=True),
+        "lambda_l2": trial.suggest_float("lambda_l2", 1e-8, 10.0, log=True),
+        "num_leaves": trial.suggest_int("num_leaves", 2, 256),
+        "feature_fraction": trial.suggest_float("feature_fraction", 0.4, 1.0),
+        "bagging_fraction": trial.suggest_float("bagging_fraction", 0.4, 1.0),
+        "bagging_freq": trial.suggest_int("bagging_freq", 1, 7),
+        "min_child_samples": trial.suggest_int("min_child_samples", 5, 100),
+    }
